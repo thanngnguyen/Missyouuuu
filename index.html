@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-image: url(./image03.gif);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      font-size: 50px;
+      color: palevioletred;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+    #generate-button {
+      padding: 10px 20px;
+      background-color: pink;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #generate-button:hover {
+      background-color: palevioletred;
+    }
+
+    .tab {
+      width: 400px;
+      height: 250px;
+      color: white;
+      border-radius: 8px;
+      position: absolute;
+      font-size: 14px;
+      z-index: 100;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .tab-header {
+      height: 40px;
+      background-color: #ffffff;
+      color: palevioletred;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      padding: 0 10px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .tab-header .close-btn {
+      background-color: palevioletred;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 18px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tab-body {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      font-size: 26px;
+      text-align: center;
+      background-color: pink;
+    }
+
+    .tab.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+  <body>
+    <h1>Anh có điều muốn nói ^^</h1>
+    <div class="container">
+      <button id="generate-button">Ấn zô đây điii</button>
+    </div>
+  </body>
+  <script>
+    const generateButton = document.getElementById("generate-button");
+
+    let tabIndex = 1;
+    let tabInterval;
+
+    function createTab() {
+      const tab = document.createElement("div");
+      tab.className = "tab";
+
+      tab.innerHTML = `
+    <div class="tab-header">
+      <span>Tràn bộ nhớ :(((</span>
+      <button class="close-btn">x</button>
+    </div>
+    <div class="tab-body">
+      nhớ emmmmmm!!!!!
+    </div>
+  `;
+
+      const x = Math.random() * (window.innerWidth - 200);
+      const y = Math.random() * (window.innerHeight - 100);
+      tab.style.left = `${x}px`;
+      tab.style.top = `${y}px`;
+
+      document.body.appendChild(tab);
+
+      setTimeout(() => {
+        tab.classList.add("visible");
+      }, 100);
+
+      tab.querySelector(".close-btn").addEventListener("click", () => {
+        tab.remove();
+      });
+
+      tabIndex++;
+    }
+
+    generateButton.addEventListener("click", () => {
+      if (!tabInterval) {
+        tabInterval = setInterval(() => {
+          if (tabIndex <= 100) {
+            createTab();
+          } else {
+            clearInterval(tabInterval);
+            tabInterval = null;
+          }
+        }, 100);
+      }
+    });
+  </script>
+</html>
